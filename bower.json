@@ -1,0 +1,22 @@
+{
+  "name": "templateManager",
+  "version": "1.0.0",
+  "homepage": "https://github.com/dbrekalo/templateManager",
+  "authors": [
+    "Damir Brekalo <dbrekalo@gmail.com>"
+  ],
+  "description": "JS template manager based on jQuery",
+  "main": "dist/templateManager.min.js",
+  "keywords": [
+    "JS",
+    "Template"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

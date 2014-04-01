@@ -75,6 +75,11 @@
 			return api;
 		},
 
+		setTemplateExtension: function(extension){
+			templateExtension = extension;
+			return api;
+		},
+
 		cacheScriptTemplates: function(selector, key){
 
 			$(selector).each(function(){

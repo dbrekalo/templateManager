@@ -1,0 +1,44 @@
+<h1>templateManager</h1>
+
+<p>JS template manager based on jQuery. Get your templates from inline scripts or through ajax calls and manage them in one place.</p>
+
+<h2>Usage</h2>
+
+<p>```javascript</p>
+
+<p>app.getTemplate(&lsquo;templates/homepage&rsquo;, function(template){
+    $body.html(template(data));
+});</p>
+
+<p>```</p>
+
+<h2>API</h2>
+
+<p>```javascript
+// Set base path for templates that you get via ajax calls
+app.getTemplate.setBasePath(&lsquo;static/templates/&rsquo;)</p>
+
+<p>// Will loop through inline scripts with class &ldquo;jsTemplate&rdquo;
+// and save compiled templates under key provided by &ldquo;data-template-key&rdquo; attribute on script tag
+app.getTemplate.cacheScriptTemplates(&lsquo;.jsTemplate&rsquo;, &lsquo;template-key&rsquo;);</p>
+
+<p>// Set template engine (looks for underscore by default)
+app.getTemplate.setTemplateEngine(window._.template);</p>
+
+<p>// Register your compiled templates
+app.getTemplate.register(&lsquo;myTemplate&rsquo;, _.template(&lsquo;<div>Test</div>&rsquo;));</p>
+
+<p>// Set expected template extension for templates compiled on ajax calls, defaults to &ldquo;.jst&rdquo;
+app.getTemplate.setTemplateExtension(&lsquo;.jst&rsquo;);</p>
+
+<p>// Set cache attribute for ajax calls, defaults to false
+app.getTemplate.setAjaxCache(true);</p>
+
+<p>```</p>
+
+<h2>Installation</h2>
+
+<p>After including library file it is recommend to alias and bring library (that is initialy in $.wk.getTemplate namespace) to your desired namespace.
+ <code>javascript
+ app.getTemplate = $.wk.getTemplate;
+</code></p>

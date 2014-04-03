@@ -1,5 +1,7 @@
 ;(function($, window){
 
+	"use strict";
+
 	var templateCache = {},
 		templateBasePath = '/',
 		templateExtension = '.jst',
@@ -20,16 +22,6 @@
 			} else {
 				$.when(templateCache[key].deffered).done(function(){ executeCallBack(); });
 			}
-
-			return templateCache[key].deffered;
-
-		} else if (sync === 'script') { // load via script tag
-
-			templateCache[key] = {
-				template: templateEngine( $('#'+key).html() ),
-				deffered: true
-			};
-			executeCallBack();
 
 			return templateCache[key].deffered;
 
@@ -87,7 +79,7 @@
 				var $this = $(this);
 				templateCache[$this.data(key)] = {
 					template: templateEngine( $this.html() ),
-					deffered: true
+					deffered: $.Deferred().resolve()
 				};
 
 			});
@@ -99,7 +91,7 @@
 
 			templateCache[key] = {
 				'template': template,
-				'deffered': true
+				'deffered': $.Deferred().resolve()
 			};
 			return api;
 
@@ -112,4 +104,4 @@
 	$.wk = $.wk || {};
 	$.wk.getTemplate = getTemplate;
 
-})(jQuery, window);
+})(window.jQuery, window);

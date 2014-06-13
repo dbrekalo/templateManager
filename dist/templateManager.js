@@ -11,19 +11,34 @@
 	function getTemplate(key, callBack, sync){
 
 		var templatePath = templateBasePath + key + templateExtension,
+			templateObject = templateCache[key],
 			executeCallBack = function(){
 				callBack && callBack(templateCache[key].template);
 			};
 
-		if (templateCache[key]) { // if cached or loading
+		if (templateObject) { // if cached or loading
 
-			if ( templateCache[key].deffered.state() === 'resolved' ){
+			if (templateObject.deffered.state() === 'resolved'){ // already compiled
+
 				executeCallBack();
+
+			} else if (templateObject.$domRef) { // script template
+
+				if (!templateObject.compiled) {
+
+					templateObject.template = templateEngine(templateObject.$domRef.html());
+					templateObject.compiled = true;
+					templateObject.deffered.resolve();
+
+				}
+
+				executeCallBack();
+
 			} else {
-				$.when(templateCache[key].deffered).done(function(){ executeCallBack(); });
+				$.when(templateObject.deffered).done(function(){ executeCallBack(); });
 			}
 
-			return templateCache[key].deffered;
+			return templateObject.deffered;
 
 		} else { // load via url
 
@@ -76,13 +91,14 @@
 
 			$(selector).each(function(){
 
-				var $this = $(this);
-				templateCache[$this.data(key)] = {
-					template: templateEngine( $this.html() ),
-					deffered: $.Deferred().resolve()
+				var $template = $(this);
+				templateCache[$template.data(key)] = {
+					deffered: $.Deferred(),
+					$domRef: $template
 				};
 
 			});
+
 			return api;
 
 		},

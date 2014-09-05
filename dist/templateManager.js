@@ -22,11 +22,11 @@
 
 				executeCallBack();
 
-			} else if (templateObject.$domRef) { // script template
+			} else if (templateObject.templateString) { // script template
 
 				if (!templateObject.compiled) {
 
-					templateObject.template = templateEngine(templateObject.$domRef.html());
+					templateObject.template = templateEngine(templateObject.templateString);
 					templateObject.compiled = true;
 					templateObject.deffered.resolve();
 
@@ -94,7 +94,7 @@
 				var $template = $(this);
 				templateCache[$template.data(key)] = {
 					deffered: $.Deferred(),
-					$domRef: $template
+					templateString: $template.text()
 				};
 
 			});

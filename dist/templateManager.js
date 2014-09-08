@@ -94,7 +94,7 @@
 				var $template = $(this);
 				templateCache[$template.data(key)] = {
 					deffered: $.Deferred(),
-					templateString: $template.text()
+					templateString: $template.html()
 				};
 
 			});
